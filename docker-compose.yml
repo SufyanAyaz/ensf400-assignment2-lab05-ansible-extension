@@ -39,12 +39,3 @@ services:
       - "2225:2225"  
     volumes:
       - /workspaces/ensf400-assignment2-lab05-ansible-extension/secrets/id_rsa_container.pub:/root/.ssh/authorized_keys
-    
-  loadbalancer:
-    build:
-      context: /workspaces/ensf400-assignment2-lab05-ansible-extension/loadbalancer
-    restart: unless-stopped
-    ports:
-      - "80:80"
-    volumes:
-      - /workspaces/ensf400-assignment2-lab05-ansible-extension/loadbalancer/nginx.cfg
