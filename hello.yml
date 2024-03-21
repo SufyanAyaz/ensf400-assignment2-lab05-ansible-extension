@@ -59,22 +59,11 @@
       apt:
         name: nginx
         state: latest
-    - name: Start Nginx
-      service:
-        name: nginx
-        state: started
       become: yes
-    - name: Check Nginx service status
-      systemd:
-        name: nginx
-        state: started
-        enabled: yes
-      register: result
     - name: Copy the Nginx config file to /etc/nginx/sites-available
       copy:
         src: /workspaces/ensf400-assignment2-lab05-ansible-extension/nginx.cfg
         dest: /etc/nginx/sites-available/nginx.cfg
-      notify: Restart nginx to apply changes
       become: yes
     - name: Create symlink of the config file at /etc/nginx/sites-enabled
       file:
@@ -82,9 +71,9 @@
         dest: /etc/nginx/sites-enabled/default
         state: link
       become: yes
-  handlers:  
     - name: Restart nginx to apply changes
       service:
         name: nginx
         state: restarted
       become: yes
+      become_method: sudo
